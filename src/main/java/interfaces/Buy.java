@@ -1,8 +1,9 @@
 package interfaces;
 
 import objects.Flight;
-import objects.Reservation;
 import spr.objects.Place;
+import objects.Reservation;
+
 
 
 public interface Buy {
