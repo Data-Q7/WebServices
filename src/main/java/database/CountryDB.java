@@ -1,10 +1,11 @@
 package database;
 
+import spr.objects.Country;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import spr.objects.Country;
 
 
 public class CountryDB {
@@ -32,10 +33,10 @@ public class CountryDB {
             country.setName(rs.getString("name"));
 
         } finally {
-            if (rs!=null) {
+            if (rs != null) {
                 rs.close();
             }
-            if (stmt!=null) {
+            if (stmt != null) {
                 stmt.close();
             }
         }

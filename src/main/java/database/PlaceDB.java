@@ -1,5 +1,7 @@
 package database;
 
+import spr.objects.Place;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,7 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import spr.objects.Place;
 
 public class PlaceDB {
 
@@ -26,7 +27,7 @@ public class PlaceDB {
     public Place getPlace(long id) {
         try {
             return getPlace(getPlaceStmt(id));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PlaceDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             AviaDB.getInstance().closeConnection();
@@ -37,7 +38,7 @@ public class PlaceDB {
     public ArrayList<Place> getPlacesByClass(long flightClassId) {
         try {
             return getPlaces(getPlaceStmtByClass(flightClassId));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PlaceDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             AviaDB.getInstance().closeConnection();
@@ -48,7 +49,7 @@ public class PlaceDB {
     public ArrayList<Place> getPlacesByAircraft(long aircraftId) {
         try {
             return getPlaces(getPlaceStmtByAircraft(aircraftId));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(PlaceDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             AviaDB.getInstance().closeConnection();
@@ -68,17 +69,15 @@ public class PlaceDB {
                 list.add(fillPlace(rs));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            rs.close();
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
         }
 
         return list;
     }
 
-   
-    private Place getPlace(PreparedStatement stmt) {
+    private Place getPlace(PreparedStatement stmt) throws SQLException {
 
         Place place = null;
         ResultSet rs = null;
@@ -90,24 +89,15 @@ public class PlaceDB {
             if (rs.isFirst()) {
                 place = fillPlace(rs);
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException ex) {
-                    Logger.getLogger(PlaceDB.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
         }
 
         return place;
     }
-    
-    
-     private Place fillPlace(ResultSet rs) throws SQLException {
+
+    private Place fillPlace(ResultSet rs) throws SQLException {
         Place place = new Place();
         place.setId(rs.getLong("id"));
         place.setSeatLetter(rs.getString("seat_letter").charAt(0));
@@ -115,7 +105,6 @@ public class PlaceDB {
         place.setFlightClass(FlightClassDB.getInstance().getFlightClass(rs.getInt("flight_class_id")));
         return place;
     }
-
 
     private PreparedStatement getPlaceStmt(long id) throws SQLException {
         Connection conn = AviaDB.getInstance().getConnection();

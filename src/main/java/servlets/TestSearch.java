@@ -1,22 +1,19 @@
 package servlets;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
+import database.CityDB;
+import database.FlightDB;
+import objects.Flight;
+import spr.objects.City;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import database.AircraftDB;
-import database.CityDB;
-import spr.objects.Aircraft;
-import spr.objects.City;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
 
-/**
- *
- * @author Tim
- */
 @WebServlet(name = "TestSearch", urlPatterns = {"/TestSearch"})
 public class TestSearch extends HttpServlet {
 
@@ -35,23 +32,19 @@ public class TestSearch extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet TestSearch</title>");
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet TestSearch at " + request.getContextPath() + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
 
+            City c1 = CityDB.getInstance().getCity(1);
+            City c2 = CityDB.getInstance().getCity(2);
+            City c3 = CityDB.getInstance().getCity(3);
 
-//            City c = CityDB.getInstance().getCity(2);
-//            System.out.println(c.getName());
-            Aircraft a = AircraftDB.getInstance().getAircraft(2);
-            System.out.println(a);
-            
+            long date = 1328418000000L;
+
+            ArrayList<Flight> list = FlightDB.getInstance().getFlights(date, c3, c2);
+
+            for (Flight flight : list) {
+                System.out.println(flight.getAircraft().getName());
+            }
+
         } finally {            
             out.close();
         }

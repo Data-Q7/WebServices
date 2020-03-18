@@ -1,12 +1,13 @@
 package database;
 
+import spr.objects.Company;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import spr.objects.Company;
 
 
 
@@ -28,7 +29,7 @@ public class CompanyDB {
     public Company getCompany(long id) {
         try {
             return getCompany(getCompanyStmt(id));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(CompanyDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             AviaDB.getInstance().closeConnection();
@@ -53,11 +54,9 @@ public class CompanyDB {
                 company.setDesc(rs.getString("desc"));
             }
 
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            assert rs != null;
-            rs.close();
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
         }
 
         return company;

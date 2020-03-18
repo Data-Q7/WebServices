@@ -1,12 +1,13 @@
 package database;
 
+import spr.objects.Aircraft;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import spr.objects.Aircraft;
 
 
 
@@ -28,7 +29,7 @@ public class AircraftDB {
     public Aircraft getAircraft(long id) {
         try {
             return getAircraft(getAircraftStmt(id));
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Logger.getLogger(AircraftDB.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             AviaDB.getInstance().closeConnection();
@@ -54,11 +55,9 @@ public class AircraftDB {
                 aircraft.setPlaceList(PlaceDB.getInstance().getPlacesByAircraft(rs.getLong("id")));
                 aircraft.setCompany(CompanyDB.getInstance().getCompany(rs.getInt("company_id")));
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         } finally {
-            rs.close();
+            if (rs != null) rs.close();
+            if (stmt != null) stmt.close();
         }
 
         return aircraft;

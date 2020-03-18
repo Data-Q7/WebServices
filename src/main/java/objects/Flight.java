@@ -1,26 +1,29 @@
 package objects;
 
-import java.util.Calendar;
 import spr.objects.Aircraft;
 import spr.objects.City;
 
-
+import java.util.Calendar;
 
 public class Flight {
-    
+
+    private String duration;// длительность полета в виде текста, этого поля нет в таблице
+
+    private long id;
     private String code;
-    
-    private Calendar flightDate;
-    
-    private Calendar flightTime;
-    
+    private Calendar dateDepart;
+    private Calendar dateCome;
     private Aircraft aircraft;
-    
-    private long duration;
-    
     private City cityFrom;
-    
     private City cityTo;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -30,20 +33,20 @@ public class Flight {
         this.code = code;
     }
 
-    public Calendar getFlightDate() {
-        return flightDate;
+    public Calendar getDateDepart() {
+        return dateDepart;
     }
 
-    public void setFlightDate(Calendar flightDate) {
-        this.flightDate = flightDate;
+    public void setDateDepart(Calendar dateDepart) {
+        this.dateDepart = dateDepart;
     }
 
-    public Calendar getFlightTime() {
-        return flightTime;
+    public Calendar getDateCome() {
+        return dateCome;
     }
 
-    public void setFlightTime(Calendar flightTime) {
-        this.flightTime = flightTime;
+    public void setDateCome(Calendar dateCome) {
+        this.dateCome = dateCome;
     }
 
     public Aircraft getAircraft() {
@@ -52,14 +55,6 @@ public class Flight {
 
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
-    }
-
-    public long getDuration() {
-        return duration;
-    }
-
-    public void setDuration(long duration) {
-        this.duration = duration;
     }
 
     public City getCityFrom() {
@@ -77,7 +72,14 @@ public class Flight {
     public void setCityTo(City cityTo) {
         this.cityTo = cityTo;
     }
-    
-    
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
 
 }

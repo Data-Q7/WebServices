@@ -56,6 +56,6 @@ public class Passenger {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
-    
+
+
 }
