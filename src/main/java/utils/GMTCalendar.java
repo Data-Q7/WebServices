@@ -10,7 +10,7 @@ public class GMTCalendar {
     }
 
     public static void print(Calendar c) {
-
+        
         int day = c.get(Calendar.DAY_OF_MONTH);
         int month = c.get(Calendar.MONTH);
         int year = c.get(Calendar.YEAR);
@@ -18,6 +18,6 @@ public class GMTCalendar {
         int minute = c.get(Calendar.MINUTE);
         int hour = c.get(Calendar.HOUR);
 
-        System.out.println("Current date is  " + day + "/" + month + "/" + year + "  " + hour + " : " + minute);
+        System.out.println("Current date is  " + day + "/" + month + "/" + year+"  "+hour + " : " + minute);
     }
 }

@@ -1,19 +1,17 @@
 package database;
 
-import spr.objects.Company;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import database.abstracts.AbstractObjectDB;
+import spr.objects.Company;
 
+public class CompanyDB extends AbstractObjectDB<Company> {
 
-
-public class CompanyDB {
     
-      private CompanyDB() {
+    public final static String TABLE_SPR_COMPANY = "spr_company";
+
+    private CompanyDB() {
+        super(TABLE_SPR_COMPANY);
     }
     private static CompanyDB instance;
 
@@ -24,49 +22,14 @@ public class CompanyDB {
 
         return instance;
     }
-    
 
-    public Company getCompany(long id) {
-        try {
-            return getCompany(getCompanyStmt(id));
-        } catch (Exception ex) {
-            Logger.getLogger(CompanyDB.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            AviaDB.getInstance().closeConnection();
-        }
-        return null;
-    }
-
- 
-    private Company getCompany(PreparedStatement stmt) throws SQLException {
-
-        Company company = null;
-        ResultSet rs = null;
-
-        try {
-            rs = stmt.executeQuery();
-
-            rs.next();
-            if (rs.isFirst()) {
-                company = new Company();
-                company.setId(rs.getLong("id"));
-                company.setName(rs.getString("name"));
-                company.setDesc(rs.getString("desc"));
-            }
-
-        } finally {
-            if (rs != null) rs.close();
-            if (stmt != null) stmt.close();
-        }
-
+    @Override
+    public Company fillObject(ResultSet rs) throws SQLException {
+        Company company = new Company();
+        company.setId(rs.getLong("id"));
+        company.setName(rs.getString("name"));
+        company.setDesc(rs.getString("desc"));
         return company;
-    }
-
-    private PreparedStatement getCompanyStmt(long id) throws SQLException {
-        Connection conn = AviaDB.getInstance().getConnection();
-        PreparedStatement stmt = conn.prepareStatement("select * from spr_company where id=?");
-        stmt.setLong(1, id);
-        return stmt;
     }
 
 }

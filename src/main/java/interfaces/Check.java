@@ -3,8 +3,9 @@ package interfaces;
 import objects.Reservation;
 
 
-public interface Check {
 
+public interface Check {
+    
     Reservation checkReservation(String code);
 
 }

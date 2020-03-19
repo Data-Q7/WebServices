@@ -4,7 +4,7 @@ public class Place {
 
     private long id;
     private char seatLetter;
-    private int seatNumber;
+    private int seatNumber;    
     private FlightClass flightClass;
 
     public long getId() {
@@ -39,5 +39,6 @@ public class Place {
         this.seatNumber = seatNumber;
     }
 
+ 
 
 }

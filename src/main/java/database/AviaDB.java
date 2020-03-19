@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 public class AviaDB {
 
     private static Connection conn;
-    private static AviaDB instance;
 
     private AviaDB() {
     }
+    private static AviaDB instance;
 
     public static AviaDB getInstance() {
         if (instance == null) {
@@ -27,14 +27,16 @@ public class AviaDB {
         try {
 
             if (conn == null || conn.isClosed()) {
-                conn = DriverManager.getConnection(
-                        "jdbc:mysql://localhost:3306/avia?serverTimezone=UTC", "root", "root");
+
+                conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/avia?serverTimezone=UTC", "root", "root");
 
             }
 
         } catch (SQLException ex) {
             Logger.getLogger(AviaDB.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
         return conn;
     }
 
@@ -42,8 +44,6 @@ public class AviaDB {
         if (conn != null) {
             try {
                 conn.close();
-
-
             } catch (SQLException ex) {
                 Logger.getLogger(AviaDB.class
                         .getName()).log(Level.SEVERE, null, ex);
