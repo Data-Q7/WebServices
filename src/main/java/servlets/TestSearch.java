@@ -3,8 +3,7 @@ package servlets;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Calendar;
-import java.util.UUID;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -12,13 +11,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import database.CityDB;
 import database.FlightDB;
 import database.PassengerDB;
 import database.PlaceDB;
-import database.ReservationDB;
+import interfaces.impls.SearchImpl;
 import objects.Flight;
 import objects.Passenger;
-import objects.Reservation;
+import spr.objects.City;
 import spr.objects.Place;
 
 @WebServlet(name = "TestSearch", urlPatterns = {"/TestSearch"})
@@ -35,35 +35,15 @@ public class TestSearch extends HttpServlet {
 
             Passenger passenger = PassengerDB.getInstance().executeObject(PassengerDB.getInstance().getObjectByID(1));
 
-            Calendar date = Calendar.getInstance();
-            date.setTimeInMillis(1328418000000L);
+            City c1 = CityDB.getInstance().executeObject(CityDB.getInstance().getObjectByID(1));
+            City c2 = CityDB.getInstance().executeObject(CityDB.getInstance().getObjectByID(2));
 
-            Reservation reserv = new Reservation();
-            reserv.setAddInfo("Без обеда");
-            reserv.setCode(UUID.randomUUID().toString());
-            reserv.setPassenger(passenger);
-            reserv.setReserveDateTime(date);
-            reserv.setPlace(place);
-            reserv.setFlight(flight);
+            SearchImpl search = new SearchImpl();
+            ArrayList<Flight> list = search.searchFlight(1328191800000L,c1, c2);
 
-//            ReservationDB.getInstance().insert(ReservationDB.getInstance().getInsertStmt(reserv));
+            System.out.println(list);
 
-            reserv = ReservationDB.getInstance().executeObject(ReservationDB.getInstance().getStmtByCode("8b625c44-d0c7-4f0e-ad25-7f1f28172a45"));
-            System.out.println(reserv.getFlight().getAircraft().getName());
-
-            Calendar c = Calendar.getInstance();
-            c.setTimeInMillis(1328645700000L);
-
-            reserv = ReservationDB.getInstance().executeObject(ReservationDB.getInstance().getStmtByDateReserv(date));
-            System.out.println(reserv.getFlight().getAircraft().getName());
-
-            reserv = ReservationDB.getInstance().executeObject(ReservationDB.getInstance().getStmtByDocumentNumber("AG2131"));
-            System.out.println(reserv.getFlight().getAircraft().getName());
-
-            reserv = ReservationDB.getInstance().executeObject(ReservationDB.getInstance().getStmtByFamilyName("Family"));
-            System.out.println(reserv.getFlight().getAircraft().getName());
-
-
+      
         } catch (SQLException ex) {
             Logger.getLogger(TestSearch.class.getName()).log(Level.SEVERE, null, ex);
         } finally {

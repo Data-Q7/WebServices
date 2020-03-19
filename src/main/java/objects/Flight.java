@@ -7,6 +7,8 @@ import spr.objects.City;
 public class Flight {
 
     private String duration;// длительность полета в виде текста, этого поля нет в таблице
+    private boolean existFreePlaces;
+    
     
     private long id;
     private String code;
@@ -79,6 +81,15 @@ public class Flight {
     public void setDuration(String duration) {
         this.duration = duration;
     }
+
+    public boolean isExistFreePlaces() {
+        return existFreePlaces;
+    }
+
+    public void setExistFreePlaces(boolean existFreePlaces) {
+        this.existFreePlaces = existFreePlaces;
+    }
+    
     
     
 }

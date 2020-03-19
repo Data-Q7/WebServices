@@ -4,11 +4,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import database.abstracts.AbstractObjectDB;
 import objects.Flight;
 import spr.objects.Aircraft;
 import spr.objects.City;
+import spr.objects.Place;
 import utils.GMTCalendar;
 
 public class FlightDB extends AbstractObjectDB<Flight> {
@@ -46,6 +48,18 @@ public class FlightDB extends AbstractObjectDB<Flight> {
 
         Aircraft aircraft = AircraftDB.getInstance().executeObject(AircraftDB.getInstance().getObjectByID(rs.getLong("aircraft_id")));
         flight.setAircraft(aircraft);
+        
+        ArrayList<Place> placeList = PlaceDB.getInstance().executeList(PlaceDB.getInstance().getPlaceStmtBusy(aircraft.getId(), flight.getId()));
+        aircraft.setPlaceList(placeList);
+        
+        // если есть хоть 1 свободное место
+        for (Place place : placeList) {
+            if (!place.isBusy()){
+                flight.setExistFreePlaces(true);
+                break;
+            }
+        }
+       
 
         City city_from = CityDB.getInstance().executeObject(CityDB.getInstance().getObjectByID(rs.getLong("city_from_id")));
         flight.setCityFrom(city_from);

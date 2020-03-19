@@ -1,13 +1,13 @@
 package interfaces;
 
 import objects.Flight;
-import objects.Reservation;
+import objects.Passenger;
 import spr.objects.Place;
 
 
 
 public interface Buy {
     
-    Reservation buyTicket(Flight flight, Place place, String addInfo);
+    boolean buyTicket(Flight flight, Place place, Passenger passenger, String addInfo);
 
 }

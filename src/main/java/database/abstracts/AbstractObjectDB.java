@@ -10,8 +10,8 @@ import database.AviaDB;
 import database.interfaces.ObjectDB;
 
 public abstract class AbstractObjectDB<T> implements ObjectDB<T> {
-    public static final int INTERVAL = 1;
 
+    public static final int INTERVAL = 1;
     private String tableName;
 
     public AbstractObjectDB(String tableName) {
@@ -106,5 +106,13 @@ public abstract class AbstractObjectDB<T> implements ObjectDB<T> {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+    }
+
+    protected boolean getBooleanFromInt(int number) {
+        if (number > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

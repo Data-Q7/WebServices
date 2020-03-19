@@ -1,7 +1,6 @@
 package interfaces;
 
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
 import objects.Flight;
 import spr.objects.City;
 
@@ -9,6 +8,6 @@ import spr.objects.City;
 
 public interface Search {
     
-    List<Flight> searchFlight(Date date, City cityFrom, City cityTo, int placeCount);  
+    ArrayList<Flight> searchFlight(long date, City cityFrom, City cityTo);  
 
 }

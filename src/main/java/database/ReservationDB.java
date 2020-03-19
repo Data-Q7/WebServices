@@ -10,6 +10,7 @@ import objects.Flight;
 import objects.Passenger;
 import objects.Reservation;
 import spr.objects.Place;
+import utils.GMTCalendar;
 
 public class ReservationDB extends AbstractObjectDB<Reservation> {
 
@@ -115,7 +116,7 @@ public class ReservationDB extends AbstractObjectDB<Reservation> {
         Place place = PlaceDB.getInstance().executeObject(PlaceDB.getInstance().getObjectByID(rs.getLong("place_id")));
         reservation.setPlace(place);
 
-        Calendar c = Calendar.getInstance();
+        Calendar c = GMTCalendar.getInstance();
         c.setTimeInMillis(rs.getLong("reserve_datetime"));
 
         reservation.setReserveDateTime(c);

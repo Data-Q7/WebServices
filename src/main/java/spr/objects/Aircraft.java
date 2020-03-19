@@ -53,4 +53,6 @@ public class Aircraft {
     public void setPlaceList(List<Place> placeList) {
         this.placeList = placeList;
     }
+
+   
 }
