@@ -9,5 +9,7 @@ import spr.objects.City;
 public interface Search {
     
     ArrayList<Flight> searchFlight(long date, City cityFrom, City cityTo);  
+    
+    ArrayList<City> getAllCities();
 
 }
