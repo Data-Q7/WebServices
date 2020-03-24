@@ -3,7 +3,7 @@ package spr.objects;
 public class Place {
 
     private long id;
-    private char seatLetter;
+    private String seatLetter;
     private int seatNumber;    
     private FlightClass flightClass;
     private boolean busy;
@@ -24,11 +24,11 @@ public class Place {
         this.flightClass = flightClass;
     }
 
-    public char getSeatLetter() {
+    public String getSeatLetter() {
         return seatLetter;
     }
 
-    public void setSeatLetter(char seatLetter) {
+    public void setSeatLetter(String seatLetter) {
         this.seatLetter = seatLetter;
     }
 

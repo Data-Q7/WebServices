@@ -29,6 +29,7 @@ public class TestSearch extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         try {
+
             Flight flight = FlightDB.getInstance().executeObject(FlightDB.getInstance().getObjectByID(1));
 
             Place place = PlaceDB.getInstance().executeObject(PlaceDB.getInstance().getObjectByID(2));

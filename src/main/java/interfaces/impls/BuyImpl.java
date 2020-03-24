@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import database.PassengerDB;
 import database.ReservationDB;
 import interfaces.Buy;
 import objects.Flight;
@@ -13,9 +14,11 @@ import objects.Reservation;
 import spr.objects.Place;
 import utils.GMTCalendar;
 
+
 public class BuyImpl implements Buy {
     
     private ReservationDB reservDB = ReservationDB.getInstance();
+    private PassengerDB passengerDB = PassengerDB.getInstance();
 
     @Override
     public boolean buyTicket(Flight flight, Place place, Passenger passenger, String addInfo) {
@@ -33,6 +36,10 @@ public class BuyImpl implements Buy {
             reserv.setPlace(place);
             reserv.setFlight(flight);
 
+            // желательно реализовать обе операции в одной транзакции
+            int id = passengerDB.insert(passengerDB.getInsertStmt(passenger));
+            passenger.setId(id);
+            
             reservDB.insert(reservDB.getInsertStmt(reserv));
 
             return true;

@@ -27,7 +27,6 @@ public class AviaDB {
         try {
 
             if (conn == null || conn.isClosed()) {
-
                 conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/avia?serverTimezone=UTC", "root", "root");
 
             }

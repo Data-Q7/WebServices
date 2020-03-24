@@ -52,13 +52,17 @@ public class FlightDB extends AbstractObjectDB<Flight> {
         ArrayList<Place> placeList = PlaceDB.getInstance().executeList(PlaceDB.getInstance().getPlaceStmtBusy(aircraft.getId(), flight.getId()));
         aircraft.setPlaceList(placeList);
         
-        // если есть хоть 1 свободное место
-        for (Place place : placeList) {
+        ArrayList<Place> freePlaceList = new ArrayList<>();
+        
+          for (Place place : placeList) {
             if (!place.isBusy()){
                 flight.setExistFreePlaces(true);
-                break;
+                freePlaceList.add(place);
             }
         }
+          
+          
+        aircraft.setFreePlaceList(freePlaceList);
        
 
         City city_from = CityDB.getInstance().executeObject(CityDB.getInstance().getObjectByID(rs.getLong("city_from_id")));

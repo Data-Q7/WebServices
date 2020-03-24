@@ -1,10 +1,14 @@
 package spr.objects;
 
+import javax.xml.bind.annotation.XmlMimeType;
+
 public class Country {
 
     private long id;
     private String name;
     private String desc;
+    
+
     private byte[] flag;
     private String code;
 

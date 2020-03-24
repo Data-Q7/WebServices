@@ -13,7 +13,6 @@ import objects.Flight;
 import spr.objects.City;
 import utils.GMTCalendar;
 
-@WebService(serviceName = "FlightService")
 public class SearchImpl implements Search {
     
     private FlightDB flightDB = FlightDB.getInstance();

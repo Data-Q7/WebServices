@@ -66,7 +66,7 @@ public class PlaceDB extends AbstractObjectDB<Place> {
     public Place fillObject(ResultSet rs) throws SQLException {
         Place place = new Place();
         place.setId(rs.getLong("id"));
-        place.setSeatLetter(rs.getString("seat_letter").charAt(0));
+        place.setSeatLetter(rs.getString("seat_letter"));
         place.setSeatNumber(rs.getInt("seat_number"));
         
         
