@@ -1,12 +1,13 @@
 package ws;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Calendar;
-import javax.jws.HandlerChain;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.jws.WebService;
-import javax.xml.ws.BindingType;
-import javax.xml.ws.soap.SOAPBinding;
-
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.ws.soap.Addressing;
 import interfaces.impls.BuyImpl;
 import interfaces.impls.CheckImpl;
 import interfaces.impls.SearchImpl;
@@ -17,11 +18,12 @@ import objects.Reservation;
 import spr.objects.City;
 import spr.objects.Place;
 import utils.GMTCalendar;
+import ws.annotations.ExceptionMessage;
 import ws.exceptions.ArgumentException;
 
 //@MTOM
 @WebService(endpointInterface = "interfaces.sei.FlightSEI")
-@BindingType(value = SOAPBinding.SOAP12HTTP_MTOM_BINDING)
+//@BindingType(value = SOAPBinding.SOAP12HTTP_MTOM_BINDING)
 //@HandlerChain(file = "FlightWS_handler.xml")
 public class FlightWS implements FlightSEI {
 
@@ -33,17 +35,11 @@ public class FlightWS implements FlightSEI {
     public ArrayList<Flight> searchFlight(Long date, City cityFrom, City cityTo) throws ArgumentException {
 
         if (date == null || date <= 0) {
-            throw new ArgumentException("Date is empty or less then zero");
+            throw new ArgumentException("Дата вылета не заполнена");
         }
 
-        if (cityFrom == null) {
-            throw new ArgumentException("CityFrom is empty");
-        }
-
-
-        if (cityTo == null) {
-            throw new ArgumentException("CityTo is empty");
-        }
+        checkObject(cityFrom, City.class);
+        checkObject(cityTo, City.class);
 
 
         ArrayList<Flight> list = new ArrayList<>();
@@ -65,18 +61,11 @@ public class FlightWS implements FlightSEI {
     @Override
     public boolean buyTicket(Flight flight, Place place, Passenger passenger, String addInfo) throws ArgumentException {
 
-        if (flight == null) {
-            throw new ArgumentException("Flight object is empty");
-        }
+        checkObject(flight, Flight.class);
+        checkObject(passenger, Passenger.class);
+        checkObject(place, Place.class);
 
-        if (passenger == null) {
-            throw new ArgumentException("Passenger object is empty");
-        }
-
-
-        boolean result = false;
-
-        result = buyImpl.buyTicket(flight, place, passenger, addInfo);
+        boolean result = buyImpl.buyTicket(flight, place, passenger, addInfo);
 
         return result;
     }
@@ -85,9 +74,35 @@ public class FlightWS implements FlightSEI {
     public Reservation checkReservationByCode(String code) throws ArgumentException {
 
         if (code == null || code.isEmpty()) {
-            throw new ArgumentException("Reservation code is empty");
+            throw new ArgumentException("Пустой код бронирования");
         }
 
         return checkImpl.checkReservationByCode(code);
+    }
+
+    private void checkObject(Object object, Class<?> c) throws ArgumentException {
+
+        if (object == null) {
+            if (c.isAnnotationPresent(ExceptionMessage.class)) {
+                throw new ArgumentException(c.getAnnotation(ExceptionMessage.class).message());
+            }
+        }
+
+        for (Field field : c.getDeclaredFields()) {
+            if (field.isAnnotationPresent(XmlElement.class)) {
+                try {
+                    field.setAccessible(true);
+                    if (field.getAnnotation(XmlElement.class).required()
+                            && (field.get(object) == null || field.get(object).equals(""))) {
+                        throw new ArgumentException(field.getAnnotation(ExceptionMessage.class).message());
+                    }
+                } catch (IllegalArgumentException ex) {
+                    Logger.getLogger(FlightWS.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IllegalAccessException ex) {
+                    Logger.getLogger(FlightWS.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
+
     }
 }

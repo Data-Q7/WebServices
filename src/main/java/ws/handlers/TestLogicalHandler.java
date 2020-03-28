@@ -1,5 +1,6 @@
 package ws.handlers;
 
+import javax.xml.soap.Node;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.ws.LogicalMessage;
 import javax.xml.ws.handler.LogicalHandler;
@@ -19,7 +20,6 @@ public class TestLogicalHandler implements LogicalHandler<LogicalMessageContext>
                 DOMSource source = (DOMSource) obj;
             }
         }
-
         return true;
     }
 

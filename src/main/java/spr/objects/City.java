@@ -1,9 +1,18 @@
 package spr.objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import ws.annotations.ExceptionMessage;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@ExceptionMessage(message = "Укажите город")
 public class City {
 
+    @XmlElement(required = true)
+    @ExceptionMessage(message = "Не указан id города")
     private long id;
-    private String name;
+    private String name;    
     private String desc;
     private Country country;
     private String code;

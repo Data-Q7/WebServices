@@ -1,10 +1,26 @@
 package spr.objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import ws.annotations.ExceptionMessage;
+
+@XmlAccessorType(XmlAccessType.FIELD)
+@ExceptionMessage(message="Объект place должен быть заполнен")
 public class Place {
 
     private long id;
+    
+    @XmlElement(required = true)
+    @ExceptionMessage(message = "Не указан ряд места")
     private String seatLetter;
+
+    @XmlElement(required = true)
+    @ExceptionMessage(message = "Не указан номер места")
     private int seatNumber;    
+    
+    @XmlElement(required = true)
+    @ExceptionMessage(message = "Не указан класс полета")
     private FlightClass flightClass;
     private boolean busy;
 

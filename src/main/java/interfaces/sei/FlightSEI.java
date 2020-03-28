@@ -6,6 +6,7 @@ import javax.jws.WebService;
 import javax.jws.soap.SOAPBinding;
 import javax.jws.soap.SOAPBinding.Style;
 import javax.jws.soap.SOAPBinding.Use;
+import javax.xml.bind.annotation.XmlElement;
 import objects.Flight;
 import objects.Passenger;
 import objects.Reservation;
@@ -19,7 +20,7 @@ import ws.exceptions.ArgumentException;
 @SOAPBinding(style=Style.DOCUMENT, use=Use.LITERAL)
 public interface FlightSEI{
     
-    Reservation checkReservationByCode(@WebParam(name = "code") String code) throws ArgumentException;
+    Reservation checkReservationByCode(@XmlElement(required=true) @WebParam(name = "code") String code) throws ArgumentException;
 
     ArrayList<City> getAllCities();
 

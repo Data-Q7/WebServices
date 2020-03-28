@@ -1,7 +1,5 @@
 package ws.exceptions;
 
-
-
 public class ExceptionInfo {
 
     private String trace;
@@ -13,7 +11,4 @@ public class ExceptionInfo {
     public void setTrace(String trace) {
         this.trace = trace;
     }
-   
-    
-
 }

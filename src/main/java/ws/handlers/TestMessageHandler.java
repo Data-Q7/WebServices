@@ -1,6 +1,5 @@
 package ws.handlers;
 
-import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
 import java.util.UUID;
@@ -36,15 +35,6 @@ public class TestMessageHandler implements SOAPHandler<SOAPMessageContext> {
                 Logger.getLogger(TestMessageHandler.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-
-        try {
-            msg.writeTo(System.out);
-        } catch (SOAPException ex) {
-            Logger.getLogger(TestMessageHandler.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(TestMessageHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
         return true;
     }
 
