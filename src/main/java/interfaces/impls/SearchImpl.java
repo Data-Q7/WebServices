@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.jws.WebService;
 import database.CityDB;
 import database.FlightDB;
 import interfaces.Search;

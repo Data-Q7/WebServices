@@ -1,7 +1,5 @@
 package spr.objects;
 
-import javax.xml.bind.annotation.XmlMimeType;
-
 public class Country {
 
     private long id;

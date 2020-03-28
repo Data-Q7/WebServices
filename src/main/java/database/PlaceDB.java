@@ -5,8 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import database.abstracts.AbstractObjectDB;
-import objects.Flight;
-import spr.objects.Aircraft;
 import spr.objects.FlightClass;
 import spr.objects.Place;
 
