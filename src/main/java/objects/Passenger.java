@@ -1,28 +1,15 @@
 package objects;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
-import ws.annotations.ExceptionMessage;
-
-@XmlAccessorType(XmlAccessType.FIELD)
-@ExceptionMessage(message="Объект passenger должен быть заполнен")
 public class Passenger {
 
     private long id;
 
-    @XmlElement(required = true)
-    @ExceptionMessage(message = "Заполните имя пассажира")
     private String givenName;
     
     private String middleName;
     
-    @XmlElement(required = true)
-    @ExceptionMessage(message = "Заполните фамилию пассажира")
     private String familyName;
     
-    @XmlElement(required = true)
-    @ExceptionMessage(message = "Заполните номер документа")
     private String documentNumber;
     
     private String email;
@@ -83,6 +70,5 @@ public class Passenger {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-    
-    
+
 }

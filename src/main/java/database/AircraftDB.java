@@ -29,7 +29,6 @@ public class AircraftDB extends AbstractObjectDB<Aircraft> {
         aircraft.setId(rs.getLong("id"));
         aircraft.setDesc(rs.getString("desc"));
         aircraft.setName(rs.getString("name"));
-
         Company comp = CompanyDB.getInstance().executeObject(CompanyDB.getInstance().getObjectByID(rs.getInt("company_id")));
 
         aircraft.setCompany(comp);

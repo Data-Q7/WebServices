@@ -8,7 +8,6 @@ import interfaces.Check;
 import objects.Reservation;
 
 
-
 public class CheckImpl implements Check{
 
     private ReservationDB reservDB = ReservationDB.getInstance();

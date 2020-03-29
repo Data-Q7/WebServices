@@ -45,9 +45,6 @@ public class SearchImpl implements Search {
             Logger.getLogger(SearchImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
         return list;
     }
-
-    
 }

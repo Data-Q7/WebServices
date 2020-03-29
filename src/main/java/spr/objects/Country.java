@@ -1,5 +1,9 @@
 package spr.objects;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Country {
 
     private long id;
@@ -49,8 +53,4 @@ public class Country {
     public void setCode(String code) {
         this.code = code;
     }
-
-   
-    
-    
 }

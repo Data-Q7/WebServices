@@ -33,8 +33,6 @@ public abstract class AbstractObjectDB<T> implements ObjectDB<T> {
                 result = rs.getInt(1);// вернуть id вставленной записи
             }
 
-            
-
         } finally {
             if (stmt != null) {
                 stmt.close();

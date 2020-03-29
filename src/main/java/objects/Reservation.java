@@ -1,12 +1,9 @@
 package objects;
 
 import java.util.Calendar;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import spr.objects.Place;
 
-@XmlAccessorType(XmlAccessType.FIELD)
 public class Reservation {
 
     private long id;
